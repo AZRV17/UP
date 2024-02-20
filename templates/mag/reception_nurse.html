@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
+    <title>Запись к врачу</title>
+</head>
+<body>
+    <div class="edit-wrapper">
+        <div class="back">
+            <a href="{% url 'index' %}"></a>
+        </div>
+        <div class="edit-input-wrapper">
+            <div class="login-header">
+                <img src="{% static 'img/logo.png' %}" alt="none">
+                <h1>Маг</h1>
+            </div>
+            <img id="calendar-img" src="{% static 'img/clarity_calendar-line.png' %}" alt="none">
+            <div class="input">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <select name="specialty">
+                        <option>
+                            Специальность врача
+                        </option>
+                        <option>
+                            Ветеринар
+                        </option>
+                        <option>
+                            Терапевт
+                        </option>
+                    </select>
+                    <select name="doctor">
+                        <option value="0">
+                            Врач
+                        </option>
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.surname }} {{ doctor.name }} {{ doctor.lastname }} - {{ doctor.direction }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="patient">
+                        <option value="0">
+                            Пациент
+                        </option>
+                        {% for patient in patients %}
+                            <option value="{{ patient.id }}">{{ patient.surname }} {{ patient.name }} {{ patient.lastname }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="schedule">
+                        <option>
+                            Время
+                        </option>
+                        {% for c in calendar %}
+                            <option value="{{ c.id }}">
+                                {{ c.schedule }} - {{ c.doctor.surname }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input id="login-btn" type="submit" value="Записать">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

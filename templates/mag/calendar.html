@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Маг - запись на прием и медицинская карта</title>
+</head>
+<style>
+    .selected {
+        background-color: #e1e1e1;
+    }
+</style>
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'index' %}"></a>
+            </div>
+        </div>
+        <div class="notification-list">
+            <hr id="notification-line">
+            {% for calendar in calendars %}
+                <div class="notification" id="{{ calendar.id }}" onclick="handleNotificationClick('{{ calendar.id }}', '{{ calendar.doctor.surname }}', '{{ calendar.schedule }}')">
+                    <p class="notification-message">{{ calendar.doctor.surname }}</p>
+                    <p class="notification-time">{{ calendar.schedule }}</p>
+                </div>
+                <hr id="notification-line">
+            {% endfor %}
+        </div>
+        <div class="buttons">
+            <a href="{% url 'add_calendar' %}" class="add-button">Добавить</a>
+            <a href="#" class="add-button" onclick="deleteSelected()">Удалить</a>
+            <a href="#" class="add-button" onclick="editSelected()">Изменить</a>
+        </div>
+    </div>
+
+    <script>
+        function handleNotificationClick(notificationId, doctorSurname, schedule) {
+            // Снимаем выделение со всех уведомлений
+            var allNotifications = document.querySelectorAll('.notification');
+            allNotifications.forEach(function(notification) {
+                notification.classList.remove('selected');
+            });
+
+            // Добавляем выделение выбранному уведомлению
+            var notificationElement = document.getElementById(notificationId);
+            notificationElement.classList.add('selected');
+        }
+
+        function deleteSelected() {
+            var selectedNotification = document.querySelector('.notification.selected');
+            if (selectedNotification) {
+                var notificationId = selectedNotification.id;
+
+                window.location.href = '{% url "delete_calendar" 0 %}'.replace('0', notificationId);
+            } else {
+                alert('Выберите уведомление для удаления');
+            }
+        }
+
+        function editSelected() {
+            var selectedNotification = document.querySelector('.notification.selected');
+            if (selectedNotification) {
+                var notificationId = selectedNotification.id;
+
+                window.location.href = '{% url "edit_calendar" 0 %}'.replace('0', notificationId);
+            } else {
+                alert('Выберите уведомление для изменения');
+            }
+        }
+    </script>
+</body>
+</html>

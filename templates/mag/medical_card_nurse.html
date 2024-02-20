@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Title</title>
+</head>
+<style>
+    .selected {
+        background-color: #cecece;
+    }
+</style>
+<body>
+    <div class="users-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'index' %}"></a>
+            </div>
+        </div>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>ID пациента</th>
+                    <th>ФИО</th>
+                    <th>Медецинская история</th>
+                    <th>Результат обследования</th>
+                    <th>Диагноз</th>
+                    <th>Лечение</th>
+                </tr>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.electronic_card.id }}</td>
+                    <td>{{ patient.id }}</td>
+                    <td>{{ patient.surname }} {{ patient.name }} {{ patient.lastname }}</td>
+                    <td>{{ patient.electronic_card.medical_card }}</td>
+                    <td>{{ patient.electronic_card.result }}</td>
+                    <td>{{ patient.electronic_card.diagnosis }}</td>
+                    <td>{{ patient.electronic_card.treatment }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'add_medical_card' %}" class="add-button">Добавить</a>
+            <a href="#" class="add-button" onclick="deleteSelected()">Удалить</a>
+            <a href="#" class="add-button" onclick="editSelected()">Изменить</a>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('table tr').click(function () {
+                $('table tr').removeClass('selected');
+                $(this).toggleClass('selected');
+            });
+        });
+
+        function deleteSelected() {
+            var selectedRow = $('table tr.selected');
+            var cardId = selectedRow.find('td:first').text();
+
+            window.location.href = '{% url "delete_medical_card" 0 %}'.replace('0', cardId);
+
+            alert(cardId)
+        }
+
+        function editSelected() {
+            var selectedRow = $('table tr.selected');
+            var cardId = selectedRow.find('td:first').text();
+
+            window.location.href = '{% url "edit_medical_card" 0 %}'.replace('0', cardId);
+        }
+    </script>
+</body>
+</html>

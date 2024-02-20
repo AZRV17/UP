@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
+      <title>adsad</title>
+  </head>
+  <body>
+    <div class="login-wrapper">
+        <div class="input-wrapper">
+            <div class="login-header">
+                <img src="{% static 'img/logo.png' %}" alt="none">
+                <h1>Маг</h1>
+            </div>
+            <h2>Авторизация</h2>
+            <div class="input">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input id="login-inp" name="login" type="text" placeholder="Логин">
+                    <input id="password-inp" name="password" type="password" placeholder="Пароль">
+                    <p class="error" style="margin-top: -4vh;">{{ error }}</p>
+                    <input id="login-btn" type="submit" value="Зарегистрироваться">
+                </form>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

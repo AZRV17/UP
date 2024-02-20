@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Маг - запись на прием и медицинская карта</title>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'index' %}"></a>
+            </div>
+        </div>
+        <div class="notification-list">
+            <hr id="notification-line">
+            <div class="notification">
+                <p class="notification-message">Напоминание о приеме пациента</p>
+                <p class="notification-time">12:00</p>
+            </div>
+            <hr id="notification-line">
+            <div class="notification">
+                <p class="notification-message">Напоминание о приеме пациента</p>
+                <p class="notification-time">12:00</p>
+            </div>
+            <hr id="notification-line">
+        </div>
+    </div>
+</body>
+</html>

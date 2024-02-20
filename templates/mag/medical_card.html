@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Title</title>
+</head>
+<body>
+    <div class="users-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'index' %}"></a>
+            </div>
+        </div>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Медецинская история</th>
+                    <th>Результат обследования</th>
+                    <th>Диагноз</th>
+                    <th>Лечение</th>
+                </tr>
+                <tr>
+                    <td>Какая то медецинская история</td>
+                    <td>Какой то результат обследования</td>
+                    <td>Какой то диагноз</td>
+                    <td>Какой то лечение</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

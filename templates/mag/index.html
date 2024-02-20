@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Маг - запись на прием и медицинская карта</title>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'logout' %}"></a>
+            </div>
+        </div>
+        <div class="navigation">
+            {% if role == 'admin' or role == 'doctor' %}
+            <div class="link"><a href="{% url 'users' %}">Пользователи</a></div>
+            <div class="link"><a href="{% url 'access_log' %}">Журнал доступа</a></div>
+            <div class="link"><a href="{% url 'calendar' %}">Расписание приемов</a></div>
+            {% elif role == 'patient' %}
+            <div class="link"><a href="{% url 'reception' %}">Записаться на прием</a></div>
+            <div class="link"><a href="{% url 'medical_card' %}">Медицинская карта</a></div>
+{#            <div class="link"><a href="{% url 'notifications' %}">Уведомления</a></div>#}
+            {% elif role == 'nurse' %}
+            <div class="link"><a href="{% url 'reception_nurse' %}">Запись пациентов</a></div>
+            <div class="link"><a href="{% url 'medical_card_nurse' %}">Медицинская карта</a></div>
+            <div class="link"><a href="{% url 'calendar' %}">Расписание приемов</a></div>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>

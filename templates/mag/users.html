@@ -1,0 +1,171 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
+    <title>Title</title>
+</head>
+<style>
+    .selected {
+        background-color: #cecece;
+    }
+</style>
+<body>
+    <div class="users-wrapper">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="none">
+            <h1>Маг</h1>
+            <div class="back-right">
+                <a href="{% url 'index' %}"></a>
+            </div>
+        </div>
+        <h2 class="title">Пользователи</h2>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Логин</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Номер телефона</th>
+                    <th>Email</th>
+                    <th>Карта</th>
+                    <th>Направление</th>
+                    <th>Роль</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.role.login }}</td>
+                        <td>{{ user.surname }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.lastname }}</td>
+                        {% if user.phone_number %}
+                            <td>{{ user.phone_number }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                        {% if user.email %}
+                        <td>{{ user.email }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        {% if user.electronic_card %}
+                        <td>{{ user.electronic_card }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        {% if user.direction %}
+                        <td>{{ user.direction }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        <td>{{ user.role.name }}</td>
+                    </tr>
+                {% endfor %}
+                {% for user in doctors %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.role.login }}</td>
+                        <td>{{ user.surname }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.lastname }}</td>
+                        {% if user.phone_number %}
+                            <td>{{ user.phone_number }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                        {% if user.email %}
+                        <td>{{ user.email }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        {% if user.electronic_card %}
+                        <td>{{ user.electronic_card }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        {% if user.direction %}
+                        <td>{{ user.direction }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        <td>{{ user.role.name }}</td>
+                    </tr>
+                {% endfor %}
+                {% for user in roles %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.login }}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{ user.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'add_patient' %}" class="add-button">Добавить Пациента</a>
+            <a href="{% url 'add_doctor' %}" class="add-button">Добавить Доктора</a>
+            <a href="{% url 'add_user' %}" class="add-button">Добавить другую роль</a>
+            <a href="#" class="add-button" onclick="deleteSelected()">Удалить</a>
+            <a href="#" class="add-button" onclick="editSelected()">Изменить</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('table tr').click(function () {
+                $('table tr').removeClass('selected');
+                $(this).toggleClass('selected');
+            });
+        });
+
+        function deleteSelected() {
+            var selectedRow = $('table tr.selected');
+            var userId = selectedRow.find('td:first').text(); // Получите ID пользователя из первой ячейки
+            var role = selectedRow.find('td:last').text(); // Получите роль из последней ячейки
+
+            if (role === 'nurse') {
+                window.location.href = '{% url "delete_nurse" 0 %}'.replace('0', userId); // Замените "delete_user" на свой URL
+            } else if (role === 'doctor') {
+                window.location.href = '{% url "delete_doctor" 0 %}'.replace('0', userId); // Замените "delete_user" на свой URL
+            } else if (role === 'patient') {
+                window.location.href = '{% url "delete_patient" 0 %}'.replace('0', userId); // Замените "delete_user" на свой URL
+            } else {
+                alert('Невозможно удалить администратора');
+            }
+        }
+
+        {#function editSelected() {}#}
+
+        function editSelected() {
+            var selectedRow = $('table tr.selected');
+            var userId = selectedRow.find('td:first').text(); // Получите ID пользователя из первой ячейки
+            var role = selectedRow.find('td:last').text(); // Получите роль из последней ячейки
+
+            if (role === 'nurse' || role === 'admin') {
+                window.location.href = '{% url "edit_user" 0 %}'.replace('0', userId); // Замените "edit_user" на свой URL
+            } else if (role === 'doctor') {
+                window.location.href = '{% url "edit_doctor" 0 %}'.replace('0', userId); // Замените "edit_user" на свой URL
+            } else if (role === 'patient') {
+                window.location.href = '{% url "edit_patient" 0 %}'.replace('0', userId); // Замените "edit_user" на свой URL
+            } else {
+                alert('Ошибка редактирования');
+            }
+        }
+    </script>
+</body>
+</html>

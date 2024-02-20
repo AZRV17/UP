@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "login.css";
+@import "reception.css";
+@import "users.css";
+@import "notification.css";
+
+/*html {*/
+/*    max-height: 97vh;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    font-family: "Inter", sans-serif;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*min-height: 100vh;*/
+
+    height: calc(100vh - 50px);
+}
+
+/*body {*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    max-height: 90vh;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+.header {
+    text-align: center;
+    /*padding: 2vh;*/
+    width: 100%;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1vw;
+    margin-top: 5vh;
+}
+
+.header img {
+    width: auto;
+    height: 8vh;
+    margin-left: 4vw;
+}
+
+.navigation {
+    flex: .8 0 auto;
+    display: flex;
+    justify-content: space-around;
+    justify-self: center;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 60%;
+    height: auto;
+    /*margin-top: 20vh;*/
+    /*background-color: #e9ecef; */
+}
+
+.link {
+    text-decoration: none;
+    background-image: url("img/figure_first.png");
+    background-position: center;
+    height: 17.3rem;
+    width: 18rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.link a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+}
+
+
+.edit-wrapper {
+    background-image: url("img/image-1@2x.png");
+    background-size: cover;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.edit-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding-top: 3vh;
+    width: 33rem;
+    border-radius: 6rem;
+    min-height: 70%;
+    margin-top: 4vh;
+    margin-left: 12vw;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+@media screen and (max-width: 1200px) {
+    .edit-input-wrapper {
+        margin-left: 0;
+    }
+
+    .navigation {
+        flex-direction: column;
+    }
+}

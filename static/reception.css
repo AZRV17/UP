@@ -1,0 +1,76 @@
+.reception-wrapper {
+    background-image: url("img/image-1@2x.png");
+    background-size: cover;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding-top: 3vh;
+    width: 33rem;
+    border-radius: 6rem;
+    height: 39rem;
+    margin-top: 4vh;
+    margin-left: 12vw;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.login-header {
+    /*flex: 0 0 auto;*/
+    text-align: center;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    /*margin-left: 2rem;*/
+    gap: 1vw;
+}
+
+#calendar-img {
+    width: auto;
+    height: 9rem;
+}
+
+.input select {
+    width: 100%;
+    height: 2.4rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    border: 0;
+    margin-top: -3vh;
+    border-radius: 3rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background: #B7E2EB;
+    transition: .2s;
+    padding-left: 1rem;
+    padding-right: 2rem;
+}
+
+.back {
+    display: flex;
+    padding-left: 2rem;
+    padding-top: 2rem;
+}
+
+.back a {
+    background-image: url("img/back.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 3rem;
+    width: 3rem;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}

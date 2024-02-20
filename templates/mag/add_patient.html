@@ -1,0 +1,50 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="edit-wrapper">
+        <div class="back">
+            <a href="{% url 'index' %}"></a>
+        </div>
+        <div class="edit-input-wrapper">
+            <div class="login-header">
+                <img src="{% static 'img/logo.png' %}" alt="none">
+                <h1>Маг</h1>
+            </div>
+            <img id="calendar-img" src="{% static 'img/clarity_calendar-line.png' %}" alt="none">
+            <div class="input">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input id="login-inp" name="surname" type="text" placeholder="Фамилия">
+                    <input id="login-inp" name="name" type="text" placeholder="Имя">
+                    <input id="login-inp" name="lastname" type="text" placeholder="Отчество">
+                    <input id="login-inp" name="phone_number" type="text" placeholder="Номер телефона">
+                    <input id="login-inp" name="email" type="text" placeholder="Email">
+                    <select name="electronic_card">
+                        <option value="0">Выберите карту</option>
+                        {% for card in cards %}
+                            <option value="{{ card.id }}" selected>{{ card.medical_card }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="role">
+                        <option value="0">Выберите роль</option>
+                        {% for role in roles %}
+                            <option value="{{ role.id }}">{{ role.login }} - {{ role.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input id="login-btn" type="submit" value="Создать">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
