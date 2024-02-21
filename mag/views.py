@@ -170,6 +170,13 @@ def reception(request):
         'error': ''
     }
 
+    try:
+        patient = Patient.objects.get(role=user)
+    except:
+        context['error'] = 'Врач должен вас зарегистрировать как пациента'
+
+        return render(request, 'mag/reception.html', context)
+
     if request.method == 'POST':
         direction = request.POST.get('specialty')
         doctor_id = request.POST.get('doctor')
