@@ -182,13 +182,13 @@ def reception(request):
         doctor_id = request.POST.get('doctor')
         calendar_id = request.POST.get('schedule')
 
-        doctor = Doctor.objects.get(id=doctor_id)
-        calendar = Calendar.objects.get(id=calendar_id)
-
-        if doctor == '0' or calendar == '0':
+        if doctor_id == '0' or calendar_id == '0':
             context['error'] = 'Заполните все поля'
 
             return render(request, 'mag/reception.html', context)
+
+        doctor = Doctor.objects.get(id=doctor_id)
+        calendar = Calendar.objects.get(id=calendar_id)
 
         if direction and doctor and calendar:
             if calendar.doctor_id != doctor.id:
