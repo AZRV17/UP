@@ -945,25 +945,6 @@ def reception_nurse(request):
     if user.name != 'nurse':
         return redirect('index')
 
-    if request.method == 'POST':
-        doctor_id = request.POST.get('doctor')
-        calendar_id = request.POST.get('schedule')
-        patient = request.POST.get('patient')
-
-        doctor = Doctor.objects.get(id=doctor_id)
-        calendar = Calendar.objects.get(id=calendar_id)
-        patient = Patient.objects.get(id=patient)
-
-        if doctor != '0' and calendar != '0' and patient != '0':
-            if calendar.doctor_id != doctor.id:
-                return render(request, 'mag/reception.html')
-
-            record = Record(calendar=calendar, recipe=None, patient=patient)
-            record.save()
-
-            return redirect('index')
-
-
     doctors = Doctor.objects.all()
     patients = Patient.objects.all()
     calendar = Calendar.objects.all()
@@ -971,8 +952,30 @@ def reception_nurse(request):
     context = {
         'doctors': doctors,
         'patients': patients,
-        'calendar': calendar
+        'calendar': calendar,
+        'error': ''
     }
+
+    if request.method == 'POST':
+        doctor_id = request.POST.get('doctor')
+        calendar_id = request.POST.get('schedule')
+        patient = request.POST.get('patient')
+
+        if doctor_id == '0' and calendar_id == '0' and patient == '0':
+            context['error'] = 'Заполните все данные'
+
+            return render(request, 'mag/reception_nurse.html', context)
+
+
+        doctor = Doctor.objects.get(id=doctor_id)
+        calendar = Calendar.objects.get(id=calendar_id)
+        patient = Patient.objects.get(id=patient)
+
+        if calendar.doctor_id != doctor.id:
+            return render(request, 'mag/reception.html')
+
+        record = Record(calendar=calendar, recipe=None, patient=patient)
+        record.save()
 
     return render(request, 'mag/reception_nurse.html', context)
 
