@@ -17,20 +17,25 @@
             </div>
         </div>
         <div class="table">
-            <table>
-                <tr>
-                    <th>Медецинская история</th>
-                    <th>Результат обследования</th>
-                    <th>Диагноз</th>
-                    <th>Лечение</th>
-                </tr>
-                <tr>
-                    <td>{{ medical_card.medical_card }}</td>
-                    <td>{{ medical_card.result }}</td>
-                    <td>{{ medical_card.diagnosis }}</td>
-                    <td>{{ medical_card.treatment }}</td>
-                </tr>
-            </table>
+            {% if medical_card != None %}
+
+                <table>
+                    <tr>
+                        <th>Медецинская история</th>
+                        <th>Результат обследования</th>
+                        <th>Диагноз</th>
+                        <th>Лечение</th>
+                    </tr>
+                    <tr>
+                        <td>{{ medical_card.medical_card }}</td>
+                        <td>{{ medical_card.result }}</td>
+                        <td>{{ medical_card.diagnosis }}</td>
+                        <td>{{ medical_card.treatment }}</td>
+                    </tr>
+                </table>
+            {% else %}
+            <h1>Медицинская карта не создана</h1>
+            {% endif %}
         </div>
     </div>
 </body>

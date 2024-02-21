@@ -264,12 +264,15 @@ def medical_card(request):
     if user.name != 'patient':
         return redirect('index')
 
-    patient = Patient.objects.get(role=user)
-    medical_card = ElectronicCard.objects.get(patient=patient)
+    try:
+        patient = Patient.objects.get(role=user)
+        medical_card = ElectronicCard.objects.get(patient=patient)
 
-    context = {
-        'medical_card': medical_card
-    }
+        context = {
+            'medical_card': medical_card
+        }
+    except:
+        context = {}
 
     return render(request, 'mag/medical_card.html', context)
 
