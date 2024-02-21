@@ -271,7 +271,7 @@ def medical_card(request):
         'medical_card': medical_card
     }
 
-    return render(request, 'mag/medical_card.html')
+    return render(request, 'mag/medical_card.html', context)
 
 
 def logout(request):
