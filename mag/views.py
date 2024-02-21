@@ -178,7 +178,6 @@ def reception(request):
         return render(request, 'mag/reception.html', context)
 
     if request.method == 'POST':
-        direction = request.POST.get('specialty')
         doctor_id = request.POST.get('doctor')
         calendar_id = request.POST.get('schedule')
 
@@ -190,14 +189,11 @@ def reception(request):
         doctor = Doctor.objects.get(id=doctor_id)
         calendar = Calendar.objects.get(id=calendar_id)
 
-        if direction and doctor and calendar:
+        if doctor and calendar:
             if calendar.doctor_id != doctor.id:
                 context['error'] = 'Неверный доктор'
 
                 return render(request, 'mag/reception.html', context)
-
-            if direction != doctor.direction:
-                context['error'] = 'Неверная специальность'
 
                 return render(request, 'mag/reception.html', context)
 
@@ -950,7 +946,6 @@ def reception_nurse(request):
         return redirect('index')
 
     if request.method == 'POST':
-        direction = request.POST.get('specialty')
         doctor_id = request.POST.get('doctor')
         calendar_id = request.POST.get('schedule')
         patient = request.POST.get('patient')
@@ -959,11 +954,8 @@ def reception_nurse(request):
         calendar = Calendar.objects.get(id=calendar_id)
         patient = Patient.objects.get(id=patient)
 
-        if direction and doctor != '0' and calendar != '0' and patient != '0':
+        if doctor != '0' and calendar != '0' and patient != '0':
             if calendar.doctor_id != doctor.id:
-                return render(request, 'mag/reception.html')
-
-            if direction != doctor.direction:
                 return render(request, 'mag/reception.html')
 
             record = Record(calendar=calendar, recipe=None, patient=patient)
