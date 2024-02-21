@@ -264,6 +264,13 @@ def medical_card(request):
     if user.name != 'patient':
         return redirect('index')
 
+    patient = Patient.objects.get(role=user)
+    medical_card = ElectronicCard.objects.get(patient=patient)
+
+    context = {
+        'medical_card': medical_card
+    }
+
     return render(request, 'mag/medical_card.html')
 
 
