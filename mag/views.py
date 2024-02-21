@@ -178,6 +178,11 @@ def reception(request):
         doctor = Doctor.objects.get(id=doctor_id)
         calendar = Calendar.objects.get(id=calendar_id)
 
+        if doctor == '0' or calendar == '0':
+            context['error'] = 'Заполните все поля'
+
+            return render(request, 'mag/reception.html', context)
+
         if direction and doctor and calendar:
             if calendar.doctor_id != doctor.id:
                 context['error'] = 'Неверный доктор'
